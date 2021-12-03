@@ -1,23 +1,35 @@
 from django.shortcuts import render
-
+from cart.forms import CartAddProductForm
 from .models import *
 
 
 def home_page(request):
     context={
-        "products": Product.objects.all() 
+        "products": Product.objects.all()[:8],
+        "cart_form": CartAddProductForm
     }
     return render(request, 'index.html',context)
 
 def shop_page(request):
     context={
+        "categories": Category.objects.all(),
         "products": Product.objects.all() 
     }
     return render(request, 'shop.html',context)
 
 
-def get_category(request,category_id):
-    product = Product.objects.filter(category_id=category_id)
+def get_category(request,*args, **kwargs):
+    context={
+        "categories": Category.objects.all(),
+        "products" : Product.objects.filter(category__slug=kwargs['category_slug'])
+    }
+    return render(request, 'shop.html', context)
+
+def product_details(requst, *args, **kwargs):
+    context={
+        "product": Product.objects.get(slug=kwargs['product_slug'])
+    }
+    return render(requst, 'product_details.html', context)
 
 def about_page(request):
     return render(request, 'about.html',{})
@@ -42,3 +54,4 @@ def blog_page(request):
 
 def contacts_page(request):
     return render(request, 'contacts.html',{})
+

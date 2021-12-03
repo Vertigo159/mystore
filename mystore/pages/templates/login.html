@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-3 mb-5">
+        </div>
+        <div class="col-6 mb-5 mt-5">
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-danger alert-common" role="alert">
+            <i class="tf-ion-close-circled"></i> {{message}}
+          </div>
+          {% endfor %}
+          {% endif %}
+            <form class="" method="post">
+            {% csrf_token %}
+            {% for f in form %}
+            <div class="mb-3">
+                <label style="font-size: 14px;" for="{{f.id_for_label }}" class="form-label">{{f.label}}</label>
+
+                <input {% if f.label == 'Пароль' or f.label == 'Повтор пароля' %}type="password"{% else %} type="text" {% endif %} class="form-control" {{f}}
+                <strong style="color:red;font-size:13px">{{ f.errors|escape }}</strong>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+        </div>
+        <div class="col-3 mb-5">
+        </div>
+    </div>
+</div>
+{% endblock main %}

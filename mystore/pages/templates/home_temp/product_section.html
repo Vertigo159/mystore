@@ -24,26 +24,14 @@
                         </div>
                         <div class="product__item__text">
                             <h6>{{product.title}}</h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
-                            <div class="rating">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <h5>{{product.price}}$</h5>
-                            <div class="product__color__select">
-                                <label for="pc-1">
-                                    <input type="radio" id="pc-1">
-                                </label>
-                                <label class="active black" for="pc-2">
-                                    <input type="radio" id="pc-2">
-                                </label>
-                                <label class="grey" for="pc-3">
-                                    <input type="radio" id="pc-3">
-                                </label>
-                            </div>
+                            <h5 style="padding-bottom: 5px;">{{product.price}}$</h5>
+                            <a class="add-cart">Add To Cart<form action="{% url 'cart_add' product.id %}" method="post">
+                                {% csrf_token %}
+                                {{cart_form.quantity}}
+                                <button style="padding:4px;" type="submit" class="site-btn" >ОК</button></form>
+                            </a>
+
+                            
                         </div>
                     </div>
             </div>

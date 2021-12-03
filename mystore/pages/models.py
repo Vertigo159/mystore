@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name="Наименование категории")
@@ -7,6 +8,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("get_category", kwargs={"category_slug": self.slug})
+    
     class Meta():
         db_table = "категории"
         verbose_name = 'Категория'
@@ -21,6 +25,9 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name="Цена")
     slug = models.SlugField(max_length=50, unique=True)
 
+    def get_absolute_url(self):
+        return reverse("product_details", kwargs={"product_slug": self.slug})
+    
 
     def __str__(self):
         return self.title
