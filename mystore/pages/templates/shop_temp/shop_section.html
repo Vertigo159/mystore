@@ -89,7 +89,11 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{product.title}}</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
+                                    <a class="add-cart">Add To Cart<form action="{% url 'cart_add' product.id %}" method="post">
+                                        {% csrf_token %}
+                                        {{cart_form.quantity}}
+                                        <button style="padding:4px;" type="submit" class="site-btn" >ОК</button></form>
+                                    </a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>

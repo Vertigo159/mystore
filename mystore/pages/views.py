@@ -13,7 +13,8 @@ def home_page(request):
 def shop_page(request):
     context={
         "categories": Category.objects.all(),
-        "products": Product.objects.all() 
+        "products": Product.objects.all(),
+        "cart_form": CartAddProductForm
     }
     return render(request, 'shop.html',context)
 
